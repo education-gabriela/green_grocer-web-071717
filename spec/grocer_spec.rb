@@ -85,9 +85,9 @@ describe "Grocer" do
       it "accounts for when there are more items than the coupon allows" do
         cheese = find_item('CHEESE')
         cart = Array.new(5, cheese)
+        puts cart
         consolidated_cart = consolidate_cart(cart)
         cheese_coupon = find_coupon("CHEESE")
-
         cheese_result = apply_coupons(consolidated_cart, [cheese_coupon])
 
         expect(cheese_result["CHEESE"][:price]).to eq(6.50)
