@@ -21,12 +21,8 @@ def apply_coupons(cart, coupons)
   coupons.each do |coupon|
     item_name = coupon[:item]
 
-    if item_coupons.key?(item_name)
-      item_coupons[item_name][:count] += 1
-    else
-      item_coupons[item_name] = {}
-      item_coupons[item_name][:count] = 1
-    end
+    item_coupons[item_name] = {count: 0} unless item_coupons.key?(item_name)
+    item_coupons[item_name][:count] += 1
 
     if cart.key?(item_name) && cart[item_name][:count] >= coupon[:num]
       item_count = cart[item_name][:count] - coupon[:num]
@@ -70,5 +66,5 @@ def checkout(cart, coupons)
     total_price_cart *= 0.9
   end
 
-  total_price_cart
+  total_price_cart.round(2)
 end
